@@ -29,7 +29,7 @@ char values[392];
 
 
 void setup() {
-  SPI.setClockDivider(SPI_CLOCK_DIV32);
+  SPI.setClockDivider(SPI_CLOCK_DIV128);
   //SPI.setDataMode(SPI_MODE0);
   Serial.begin(115200);
   //Serial.begin(9600);
@@ -49,7 +49,9 @@ void loop() {
   }
   Serial.print('\n');
 
-  delay(20);
+  //delay(20);
+  //50
+  delay(35);
 }
 
 
