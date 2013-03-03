@@ -1,5 +1,5 @@
 
-#define ENDSTOP_PIN 8 
+#define ENDSTOP_PIN 43 
 
 void setup() { 
   pinMode(ENDSTOP_PIN, INPUT); 
