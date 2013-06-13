@@ -1,12 +1,16 @@
-
+/* POP-CAD
+ * Ben Leduc-Mills
+ * Pins on header, from left to right:
+ * top led, mid led, low led, not used, top switch, mid switch, low switch, ground
+ */
 
 //int toggle1 = 2; //LED to toggle
 //int sense1 = 4; //copper tape switch
 
-int toggles[] = {
-  2,6,10};
+int toggleLeds[] = {
+  2,3,4};
 int capSwitches[] = {
-  4,8,12};
+  5,6,7};
 
 int numOuts = 3;
 
@@ -26,7 +30,7 @@ void setup() {
   
 
   for(int i = 0; i < numOuts; i++) {
-    pinMode(toggles[i], OUTPUT);
+    pinMode(toggleLeds[i], OUTPUT);
     
 //    previous[i] = 0;
 //    calibration[i] = 0;
@@ -50,13 +54,14 @@ void loop() {
 
   for(int j = 0; j < numOuts; j++) {
     int n = readCapacitivePin(capSwitches[j]);
-    Serial.print("N:  ");
+    Serial.print(j);
+    Serial.print(":  ");
     Serial.println(n);
 
     if(previous[j] <= calibration[j] && n > calibration[j]) {
       if (toggleStates[j] == LOW) toggleStates[j] = HIGH;
       else toggleStates[j] = LOW;
-      digitalWrite(toggles[j], toggleStates[j]);
+      digitalWrite(toggleLeds[j], toggleStates[j]);
     }
 
     previous[j] = n;
