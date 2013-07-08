@@ -37,8 +37,10 @@
  * Tower 9:
  * G LS=48 MS=50 TS=52 LL=49 ML=51 TL=53
  */
-int capSwitches[] = {13,12,11,22,24,26,62,63,64,7,6,5,23,25,27,36,38,40,14,15,16,37,39,41,48,50,52};
-int toggleLeds[] = {10,9,8,28,30,32,65,66,67,4,3,2,29,31,33,42,44,46,17,18,19,43,45,47,49,51,53};
+int capSwitches[] = {
+  13,12,11,22,24,26,62,63,64,7,6,5,23,25,27,36,38,40,14,15,16,37,39,41,48,50,52};
+int toggleLeds[] = {
+  10,9,8,28,30,32,65,66,67,4,3,2,29,31,33,42,44,46,17,18,19,43,45,47,49,51,53};
 
 int numOuts = 27;
 
@@ -49,17 +51,22 @@ int previous[27];
 
 void setup() {
 
-  Serial.begin(9600);
-  
+  Serial.begin(115200);
+  establishContact();  // send a byte to establish contact until receiver responds
+
   for(int i = 0; i < numOuts; i++) {
     pinMode(toggleLeds[i], OUTPUT); 
     calibration[i] += readCapacitivePin(capSwitches[i]);
     delay(100);
-    
+
   }
+
+   
 }
 
 void loop() {
+
+  //  if (Serial.available() > 0) {
 
   for(int j = 0; j < numOuts; j++) {
     int n = readCapacitivePin(capSwitches[j]);
@@ -73,16 +80,35 @@ void loop() {
     previous[j] = n;
     delayMicroseconds(500);
   }
-   
-   //print all the states of the LEDs
-   for(int k=0; k <sizeof(toggleStates); k++) {
-     Serial.print(toggleStates[k]);
-   }
-   
-   //add a carriage return
-   Serial.print("\n");
-    
+  //  }
+
+  //print all the states of the LEDs
+  for(int k=0; k < numOuts; k++) {
+    //Serial.print(toggleStates[k]);
+    if(toggleStates[k] == HIGH) {
+      Serial.print("1"); 
+    }
+    else if(toggleStates[k] == LOW) {
+      Serial.print("0"); 
+    }
+  }
+
+  //add a carriage return
+  Serial.print("\n");
+  //}
 }
+
+void establishContact() {
+  while (Serial.available() <= 0) {
+    Serial.println("hello"); 
+    delay(300);
+  }
+}
+
+
+
+
+
 
 
 
