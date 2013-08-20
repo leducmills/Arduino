@@ -14,10 +14,10 @@ void loop() {
  if (Serial.available() > 0) {
     // read the incoming byte:
     int inByte = Serial.read();
-    int leftPaddle = analogRead(A0);
+    int leftPaddle = analogRead(A0)/4;
     Serial.print(leftPaddle, DEC);
     Serial.print(",");
-    int rightPaddle = analogRead(A1);
+    int rightPaddle = analogRead(A1)/4;
     Serial.println(rightPaddle, DEC);
     // Serial.println(rightPaddle, DEC);
     //Serial.println(leftPaddle, DEC);

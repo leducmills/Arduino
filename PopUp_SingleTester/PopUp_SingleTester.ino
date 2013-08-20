@@ -11,10 +11,10 @@
  * Pin-outs:
  * 
  * Tower 1: 
- * G LS=21 MS=12 TS=11 LL=10 ML=9 TL=8      
+ * G LS=21 MS=12 TS=11 LL=10 ML=9 TL=8
  * 
  * Tower 2: 
- * G LS=34 MS=24 TS=26 LL=28 ML=30 TL=32   /// ls=24 ms=26 ts=28 ll=30 ml=32 tl==34
+ * G LS=34 MS=24 TS=26 LL=28 ML=30 TL=32
  * 
  * Tower 3:  ********CHANGING******** LS = 54(A0)*61 MS = 55(A1) TS = 56(A2) LL=57(A3) ML=58(A4) TL=59(A5)
  * 
@@ -37,6 +37,11 @@
  * Tower 9: **************CHANGING************** LS = 64(A10) MS = 65(A11) TS = 66(A12) LL= 67(A13) ML= 68(A14) TL= 69(A15)
  * 
  */
+//int capSwitches[] = {
+//  10, 11, 12};
+//int toggleLeds[] = {
+//  7,8,9};
+
 const int NUM = 27;
 
 //int capSwitches[] = {
@@ -46,13 +51,9 @@ const int NUM = 27;
 
 
 int capSwitches[] = {
-  21,52,12,  32,30,28,  57,58,59,  5,6,7,  23,25,27,  50,48,46,  20,19,18,  37,39,41, 69,68,67};
+  21,11,12,  32,30,28,  57,58,59,  5,6,7,  23,25,27,  40,38,36,  20,19,18,  37,39,41, 69,68,67};
 int toggleLeds[] = {
-  8,9,10,  26,24,22,  54,55,56,  2,3,4,  29,31,33,  40,38,36,  17,16,15,  43,45,47, 66,65,64};
-
-//int capSwitches[] = {57,58,59,  32,30,28,  21,52,12,  50,48,46,  23,25,27, 5,6,7,  69,68,67, 37,39,41,  20,19,18};
-//
-//int toggleLeds[] = {54,55,56,  26,24,22,  8,9,10,  40,38,36,  29,31,33,  2,3,4, 66,65,64,  43,45,47, 17,16,15};
+  8,9,10,  26,24,22,  54,55,56,  2,3,4,  29,31,33,  50,48,46,  17,16,15,  43,45,47, 66,65,64};
 
 int numOuts = NUM;
 
@@ -64,8 +65,9 @@ int previous[NUM];
 void setup() {
 
   Serial.begin(115200);
-  establishContact();  // send a byte to establish contact until receiver responds
+  //establishContact();  // send a byte to establish contact until receiver responds
 
+  //Serial.println(capSwitches[0]);
   for(int i = 0; i < numOuts; i++) {
     pinMode(toggleLeds[i], OUTPUT); 
     calibration[i] += readCapacitivePin(capSwitches[i]);
@@ -73,7 +75,7 @@ void setup() {
 
   }
 
-   
+
 }
 
 void loop() {
@@ -116,6 +118,7 @@ void establishContact() {
     delay(300);
   }
 }
+
 
 
 
