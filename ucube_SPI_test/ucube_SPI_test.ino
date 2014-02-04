@@ -32,7 +32,7 @@ void setup() {
   SPI.setClockDivider(SPI_CLOCK_DIV128);
   //SPI.setDataMode(SPI_MODE0);
   Serial.begin(115200);
-  //Serial.begin(9600);
+  //Serial.begin(230400);
   SPI.begin();
   
 

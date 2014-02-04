@@ -6,8 +6,9 @@ void setup() {
 }
 
 void loop() {
- 
- analogValue = analogRead(0);
+ while (Serial.available() <= 0) { 
+ analogValue = analogRead(A0);
  Serial.println(analogValue);
- delay(10); 
+ delay(5); 
+ }
 }
